@@ -34,7 +34,7 @@ int SettingsWindow:: getRate(){
 }
 
 QStringList SettingsWindow:: getPlayerList(){
-    return ui -> playerText -> toPlainText().split('\n');
+    return ui -> playerText -> toPlainText().replace(" ", "_").split("\n");
 }
 
 int SettingsWindow:: getMochi(){

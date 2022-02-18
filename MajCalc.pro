@@ -9,30 +9,33 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    gamehistorywindow.cpp \
-    hancyan.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    ranksystem.cpp \
-    resultaddwindow.cpp \
-    settingswindow.cpp \
-    statisticwindow.cpp
+    Src/gamehistorywindow.cpp \
+    Src/hancyan.cpp \
+    Src/main.cpp \
+    Src/mainwindow.cpp \
+    Src/ranksystem.cpp \
+    Src/resultaddwindow.cpp \
+    Src/settingswindow.cpp \
+    Src/statisticwindow.cpp
 
 HEADERS += \
-    gamehistorywindow.h \
-    hancyan.h \
-    mainwindow.h \
-    ranksystem.h \
-    resultaddwindow.h \
-    settingswindow.h \
-    statisticwindow.h
+    Include/gamehistorywindow.h \
+    Include/hancyan.h \
+    Include/mainwindow.h \
+    Include/ranksystem.h \
+    Include/resultaddwindow.h \
+    Include/settingswindow.h \
+    Include/statisticwindow.h
 
 FORMS += \
-    gamehistorywindow.ui \
-    mainwindow.ui \
-    resultaddwindow.ui \
-    settingswindow.ui \
-    statisticwindow.ui
+    UI/gamehistorywindow.ui \
+    UI/mainwindow.ui \
+    UI/resultaddwindow.ui \
+    UI/settingswindow.ui \
+    UI/statisticwindow.ui
+
+INCLUDEPATH += Include/
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
