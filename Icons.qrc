@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icons/upload.png</file>
+        <file>Icons/icon.png</file>
+        <file>Icons/edit.png</file>
+        <file>Icons/delete.png</file>
+        <file>Icons/settings.png</file>
+        <file>Icons/statistic.png</file>
+        <file>Icons/confirm.png</file>
+        <file>Icons/cancel.png</file>
+        <file>Icons/lucky.png</file>
+        <file>Icons/calender.png</file>
+        <file>Icons/record.png</file>
+        <file>Icons/rank0.png</file>
+        <file>Icons/rank1.png</file>
+        <file>Icons/rank2.png</file>
+        <file>Icons/rank3.png</file>
+        <file>Icons/rank4.png</file>
+        <file>Icons/rank5.png</file>
+        <file>Icons/rank6.png</file>
+        <file>Icons/rank7.png</file>
+        <file>Icons/rank8.png</file>
+        <file>Icons/rank9.png</file>
+        <file>Icons/rank10.png</file>
+        <file>Icons/rank11.png</file>
+        <file>Icons/rank12.png</file>
+        <file>Icons/rank13.png</file>
+        <file>Icons/rank14.png</file>
+        <file>Icons/rank15.png</file>
+        <file>Icons/rankDefault.png</file>
+    </qresource>
+</RCC>
