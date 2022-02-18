@@ -80,6 +80,7 @@ void MainWindow:: addRecordFromDB(const QString &date, int &row){
     ui -> pointTable -> setItem(row, 0, new QTableWidgetItem(date));
     ui -> pointTable -> item(row, 0) -> setTextAlignment(Qt::AlignHCenter | Qt:: AlignVCenter);
     bool ok = false;
+
     while (query.next()){
         int rank = query.value(1).toInt();
         QString point = query.value(2).toString();
@@ -160,10 +161,12 @@ void MainWindow:: resultAddWindow_ConfirmButtonClicked(HanCyan result){
     if (!db.open()){
         QMessageBox::information(this, "错误", "数据库打开失败");
     }
+    db.transaction();
     QSqlQuery q;
     for(int i = 0 ; i < 4; i ++){
         q.exec(QString("INSERT INTO gameHistory VALUES('%1', '%2', %3, %4, %5)").arg(currentDate).arg(rank[i]).arg(i + 1).arg(result.getPoint(rank[i])).arg(calcMoney(i + 1, result.getPoint(rank[i]))));//date player rank point
     }
+    db.commit();
 }
 
 void MainWindow:: settingsWindow_ConfirmButtonClicked(QStringList list){
@@ -211,6 +214,7 @@ void MainWindow:: resultAddWindow_ConfirmButtonClicked_Modify(HanCyan result){
     if (!db.open()){
         QMessageBox::information(this, "错误", "数据库打开失败");
     }
+    db.transaction();
     QSqlQuery q;
     QString date = result.getGameTime().toString("yyyy年MM月dd日 hh:mm");
     int rowCount = ui -> pointTable -> rowCount();
@@ -228,6 +232,7 @@ void MainWindow:: resultAddWindow_ConfirmButtonClicked_Modify(HanCyan result){
             break;
         }
     }
+    db.commit();
 }
 
 void MainWindow:: mainWindow_DeleteButtonClicked(){
