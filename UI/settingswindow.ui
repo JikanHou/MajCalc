@@ -32,7 +32,7 @@
    <string>设置</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="Icons.qrc">
+   <iconset resource="../Icons.qrc">
     <normaloff>:/Icons/icon.png</normaloff>:/Icons/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -67,8 +67,8 @@
    <widget class="QWidget" name="verticalLayoutWidget_6">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>100</y>
+      <x>70</x>
+      <y>80</y>
       <width>229</width>
       <height>206</height>
      </rect>
@@ -194,7 +194,7 @@
               </font>
              </property>
              <property name="maxLength">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="placeholderText">
               <string>20</string>
@@ -209,7 +209,7 @@
               </font>
              </property>
              <property name="maxLength">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="placeholderText">
               <string>10</string>
@@ -224,7 +224,7 @@
               </font>
              </property>
              <property name="maxLength">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="placeholderText">
               <string>-10</string>
@@ -239,7 +239,7 @@
               </font>
              </property>
              <property name="maxLength">
-              <number>3</number>
+              <number>5</number>
              </property>
              <property name="placeholderText">
               <string>-20</string>
@@ -275,6 +275,9 @@
              <family>宋体</family>
             </font>
            </property>
+           <property name="maxLength">
+            <number>32767</number>
+           </property>
            <property name="placeholderText">
             <string>1000</string>
            </property>
@@ -289,10 +292,10 @@
    <widget class="QWidget" name="verticalLayoutWidget_7">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>100</y>
+      <x>480</x>
+      <y>80</y>
       <width>301</width>
-      <height>411</height>
+      <height>431</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -328,6 +331,16 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>请将玩家姓名输入此文本框，以换行符分隔</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
   </widget>
@@ -355,7 +368,7 @@
   </widget>
   <action name="confirm">
    <property name="icon">
-    <iconset resource="Icons.qrc">
+    <iconset resource="../Icons.qrc">
      <normaloff>:/Icons/confirm.png</normaloff>:/Icons/confirm.png</iconset>
    </property>
    <property name="text">
@@ -364,7 +377,7 @@
   </action>
   <action name="cancel">
    <property name="icon">
-    <iconset resource="Icons.qrc">
+    <iconset resource="../Icons.qrc">
      <normaloff>:/Icons/cancel.png</normaloff>:/Icons/cancel.png</iconset>
    </property>
    <property name="text">
@@ -373,7 +386,7 @@
   </action>
  </widget>
  <resources>
-  <include location="Icons.qrc"/>
+  <include location="../Icons.qrc"/>
  </resources>
  <connections/>
 </ui>

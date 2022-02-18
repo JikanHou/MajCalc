@@ -5,9 +5,7 @@ StatisticWindow::StatisticWindow(QWidget *parent) :QMainWindow(parent), ui(new U
     ui->setupUi(this);
     connect(ui -> playerName, &QComboBox:: currentTextChanged, this, &StatisticWindow:: playerChosen);
     connect(ui -> statcTime, &QComboBox:: currentTextChanged, this, &StatisticWindow:: playerChosen);
-
-
-
+    playerChosen();
 }
 
 StatisticWindow::~StatisticWindow(){
@@ -49,22 +47,23 @@ void StatisticWindow:: playerChosen(){
     }
     QSqlQuery q;
     if (ui -> playerName -> currentText().isEmpty()){
-        ui -> totalGameCount -> setText(0);
+        ui -> totalGameCount -> setText("0");
         ui -> ichii -> setText("NaN");
         ui -> nii -> setText("NaN");
         ui -> sani -> setText("NaN");
         ui -> yoni -> setText("NaN");
         ui -> avgRank -> setText("NaN");
-        ui -> highest -> setText(0);
-        ui -> lowest -> setText(0);
+        ui -> highest -> setText("0");
+        ui -> lowest -> setText("0");
         ui -> avgPoint -> setText("NaN");
         ui -> flyingRate -> setText("NaN");
         ui -> avgMoney -> setText("NaN");
-        ui -> sumMoney -> setText(0);
+        ui -> sumMoney -> setText("0");
         ui -> rankPic -> setPixmap(QPixmap(QString(":/Icons/rankDefault.png")));
+        ui -> pt -> setText("INF/INF\n雀渣");
     }
     else{
-        qDebug() << QString::fromLocal8Bit(ui -> playerName -> currentText().toLocal8Bit()) << ui -> statcTime -> currentText();
+        //qDebug() << QString::fromLocal8Bit(ui -> playerName -> currentText().toLocal8Bit()) << ui -> statcTime -> currentText();
         int rank[4] = {0, 0, 0, 0}, sumPoint = 0, gameCnt = 0, maxPoint = -100000, minPoint = 100000;
         int tobi = 0;
         double sumMoney = 0;
@@ -92,8 +91,8 @@ void StatisticWindow:: playerChosen(){
             else if (timeDuration == "生涯")
                 targetCnt = 0x7ffffff;
         }
-        qDebug() << "statistic" << q.lastError() << targetTime << targetCnt;
-        qDebug() << q.lastQuery();
+        //qDebug() << "statistic" << q.lastError() << targetTime << targetCnt;
+        //qDebug() << q.lastQuery();
         while (q.next() && targetCnt --){
             int r = q.value(0).toInt(), point = q.value(1).toInt();
             double money = q.value(2).toDouble();
@@ -125,16 +124,16 @@ void StatisticWindow:: playerChosen(){
         }
         else{
             ui -> totalGameCount -> setText(QString:: number(gameCnt));
-            ui -> ichii -> setText(QString:: number(double(rank[0]) / gameCnt, 'g', 4));
-            ui -> nii -> setText(QString:: number(double(rank[1]) / gameCnt, 'g', 4));
-            ui -> sani -> setText(QString:: number(double(rank[2]) / gameCnt, 'g', 4));
-            ui -> yoni -> setText(QString:: number(double(rank[3]) / gameCnt, 'g', 4));
-            ui -> avgRank -> setText(QString:: number(double(rank[0] + 2 * rank[1] + 3 * rank[2] + 4 * rank[3]) / gameCnt, 'g', 4));
+            ui -> ichii -> setText(QString:: number(double(rank[0]) / gameCnt, 'f', 2));
+            ui -> nii -> setText(QString:: number(double(rank[1]) / gameCnt, 'f', 2));
+            ui -> sani -> setText(QString:: number(double(rank[2]) / gameCnt, 'f', 2));
+            ui -> yoni -> setText(QString:: number(double(rank[3]) / gameCnt, 'f', 2));
+            ui -> avgRank -> setText(QString:: number(double(rank[0] + 2 * rank[1] + 3 * rank[2] + 4 * rank[3]) / gameCnt, 'g', 2));
             ui -> highest -> setText(QString:: number(maxPoint));
             ui -> lowest -> setText(QString:: number(minPoint));
             ui -> avgPoint -> setText(QString:: number(sumPoint / gameCnt));
-            ui -> flyingRate -> setText(QString:: number(double(tobi) / gameCnt, 'g', 4));
-            ui -> avgMoney -> setText(QString:: number(sumMoney / gameCnt, 'g', 4));
+            ui -> flyingRate -> setText(QString:: number(double(tobi) / gameCnt, 'f', 2));
+            ui -> avgMoney -> setText(QString:: number(sumMoney / gameCnt, 'f', 2));
             ui -> sumMoney -> setText(QString:: number(sumMoney));
         }
         q.exec(QString("SELECT rank, point, money, date FROM gameHistory WHERE player = '%1' ORDER BY date ASC").arg(ui -> playerName -> currentText()));

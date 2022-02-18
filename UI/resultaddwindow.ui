@@ -35,7 +35,7 @@
    <string>分数录入界面</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="Icons.qrc">
+   <iconset resource="../Icons.qrc">
     <normaloff>:/Icons/icon.png</normaloff>:/Icons/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -291,7 +291,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="Icons.qrc">
+    <iconset resource="../Icons.qrc">
      <normaloff>:/Icons/confirm.png</normaloff>:/Icons/confirm.png</iconset>
    </property>
    <property name="text">
@@ -306,7 +306,7 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="Icons.qrc">
+    <iconset resource="../Icons.qrc">
      <normaloff>:/Icons/cancel.png</normaloff>:/Icons/cancel.png</iconset>
    </property>
    <property name="text">
@@ -328,7 +328,7 @@
   <tabstop>comboBox_4</tabstop>
  </tabstops>
  <resources>
-  <include location="Icons.qrc"/>
+  <include location="../Icons.qrc"/>
  </resources>
  <connections/>
 </ui>

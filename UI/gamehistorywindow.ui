@@ -32,7 +32,7 @@
    <string>历史对局</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="Icons.qrc">
+   <iconset resource="../Icons.qrc">
     <normaloff>:/Icons/icon.png</normaloff>:/Icons/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -141,7 +141,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="Icons.qrc"/>
+  <include location="../Icons.qrc"/>
  </resources>
  <connections/>
 </ui>

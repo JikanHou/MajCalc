@@ -38,13 +38,13 @@ void MainWindow:: restoreSettings(){
     QSettings settings("HouJikan", "MJCalc");
     lastTime = settings.value("lastTime").toDateTime();
     QDateTime now = QDateTime:: currentDateTime();
-    QStringList headerList, moneyHeaderList;
-
+    QStringList _headerList, moneyHeaderList;
     ui -> pointTable -> clearContents();
-    headerList << "对局时间" << "一位" << "二位" << "三位" << "四位";
+    _headerList << "对局时间" << "一位" << "二位" << "三位" << "四位";
     ui -> pointTable -> setColumnCount(5);
-    ui -> pointTable -> setHorizontalHeaderLabels(headerList);
     ui -> pointTable -> setRowCount(0);
+    ui -> pointTable -> setHorizontalHeaderLabels(_headerList);
+
 
     ui -> moneyTable -> clearContents();
     moneyHeaderList << "姓名" << "总计";
@@ -118,7 +118,7 @@ void MainWindow:: updateMoney(){
     for (QMap<QString, double>:: iterator it = map.begin(); it != map.end(); ++ it){
         ui -> moneyTable -> insertRow(row);
         ui -> moneyTable -> setItem(row, 0, new QTableWidgetItem(it.key()));
-        ui -> moneyTable -> setItem(row, 1, new QTableWidgetItem(QString:: number(it.value())));
+        ui -> moneyTable -> setItem(row, 1, new QTableWidgetItem(QString:: number(it.value(), 'f', 1)));
         ui -> moneyTable -> item(row, 0) -> setTextAlignment(Qt::AlignHCenter | Qt:: AlignVCenter);
         ui -> moneyTable -> item(row, 1) -> setTextAlignment(Qt::AlignHCenter | Qt:: AlignVCenter);
         qDebug() << ui -> moneyTable -> item(row, 1) -> text();
