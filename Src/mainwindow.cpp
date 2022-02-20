@@ -36,7 +36,8 @@ MainWindow::~MainWindow(){
 
 void MainWindow:: restoreSettings(){
     QSettings settings("HouJikan", "MJCalc");
-    lastTime = settings.value("lastTime").toDateTime();
+    QDateTime lastTime;
+    lastTime = settings.value("lastTime", QDateTime:: currentDateTime()).toDateTime();
     QDateTime now = QDateTime:: currentDateTime();
     QStringList _headerList, moneyHeaderList;
     ui -> pointTable -> clearContents();
@@ -69,6 +70,15 @@ void MainWindow:: restoreSettings(){
 }
 
 void MainWindow:: addRecordFromDB(const QString &date, int &row){
+    QSqlDatabase db;
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+      db = QSqlDatabase::database("qt_sql_default_connection");
+    else
+      db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("MaJCalc.db");
+    if (!db.open()){
+        QMessageBox::information(this, "错误", "数据库打开失败" + db.lastError().text());
+    }
     QSqlQuery query;
     QString sql = "SELECT player, rank, point FROM gameHistory where date='%1'";
     sql = sql.arg(date);
@@ -142,7 +152,7 @@ void MainWindow:: resultAddWindow_ConfirmButtonClicked(HanCyan result){
     }
     QSettings settings("HouJikan", "MJCalc");
     QDateTime currentDate_t = result.getGameTime();
-    while (currentDate_t.secsTo(settings.value("lastTime").toDateTime()) > -60)
+    while (currentDate_t.secsTo(settings.value("lastTime", QDateTime:: currentDateTime()).toDateTime()) > -60)
         currentDate_t = currentDate_t.addSecs(60);
     settings.setValue("lastTime", currentDate_t);
     QString currentDate = currentDate_t.toString("yyyy年MM月dd日 hh:mm");
@@ -181,7 +191,7 @@ void MainWindow:: databaseSetup(){
       db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("MaJCalc.db");
     if (!db.open()){
-        QMessageBox::information(this, "错误", "数据库打开失败");
+        QMessageBox::information(this, "错误", "数据库打开失败\n" + db.lastError().text());
     }
     QSqlQuery q;
     q.exec("SELECT * FROM sqlite_master WHERE name = 'gameHistory'");

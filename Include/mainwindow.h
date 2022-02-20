@@ -40,7 +40,7 @@ private:
     GameHistoryWindow *gameHistoryWindow;
 
     //QString currentTime;
-    QDateTime lastTime;
+    //QDateTime lastTime;
 
 
     void restoreSettings();

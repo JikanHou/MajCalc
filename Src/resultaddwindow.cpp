@@ -40,7 +40,7 @@ void ResultAddWindow:: resultAddWindow_ConfirmButtonClicked(){
     }
     if (ui -> sum -> text() != "总和：100000"){
         int ret = QMessageBox:: question(this, "警告", "玩家总分不为100000，是否确认上传？");
-        if (ret != QMessageBox:: Ok){
+        if (ret != QMessageBox:: Yes){
             return;
         }
     }
