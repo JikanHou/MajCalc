@@ -16,6 +16,7 @@ SOURCES += \
     Src/ranksystem.cpp \
     Src/resultaddwindow.cpp \
     Src/settingswindow.cpp \
+    Src/bigeventwindow.cpp \
     Src/statisticwindow.cpp
 
 HEADERS += \
@@ -25,6 +26,7 @@ HEADERS += \
     Include/ranksystem.h \
     Include/resultaddwindow.h \
     Include/settingswindow.h \
+    Include/bigeventwindow.h \
     Include/statisticwindow.h
 
 FORMS += \
@@ -32,6 +34,7 @@ FORMS += \
     UI/mainwindow.ui \
     UI/resultaddwindow.ui \
     UI/settingswindow.ui \
+    UI/bigeventwindow.ui \
     UI/statisticwindow.ui
 
 INCLUDEPATH += Include/

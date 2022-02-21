@@ -19,6 +19,7 @@
 #include "settingswindow.h"
 #include "statisticwindow.h"
 #include "gamehistorywindow.h"
+#include "bigeventwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,7 +39,7 @@ private:
     SettingsWindow *settingsWindow;
     StatisticWindow *statisticWindow;
     GameHistoryWindow *gameHistoryWindow;
-
+    BigEventWindow *bigEventWindow;
     //QString currentTime;
     //QDateTime lastTime;
 

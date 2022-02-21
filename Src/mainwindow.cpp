@@ -8,6 +8,7 @@ MainWindow:: MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWi
     settingsWindow = new SettingsWindow();
     statisticWindow = new StatisticWindow();
     gameHistoryWindow = new GameHistoryWindow();
+    bigEventWindow = new BigEventWindow();
 
     connect(ui -> resultUpload, &QAction:: triggered, resultAddWindow, &ResultAddWindow:: mainWindow_ResultAddButtonClicked);
     connect(resultAddWindow, &ResultAddWindow:: resultAddWindow_ConfirmButtonClickedSignal, this, &MainWindow:: resultAddWindow_ConfirmButtonClicked);
@@ -24,10 +25,12 @@ MainWindow:: MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWi
 
     connect(ui -> resultStatistic, &QAction:: triggered, statisticWindow, &StatisticWindow:: mainWindow_StatisticButtonClicked);
     connect(ui -> gameHistory, &QAction:: triggered, gameHistoryWindow, &GameHistoryWindow:: mainWindow_CalendarButtonClicked);
+    connect(ui -> bigEvent, &QAction:: triggered, bigEventWindow, &BigEventWindow:: mainWindow_bigEventButtonClicked);
 
     databaseSetup();
     restoreSettings();
     resultAddWindow -> modifyPlayerName(settingsWindow -> getPlayerList());
+    bigEventWindow -> setComboName(settingsWindow -> getPlayerList());
 }
 
 MainWindow::~MainWindow(){
@@ -181,6 +184,7 @@ void MainWindow:: resultAddWindow_ConfirmButtonClicked(HanCyan result){
 
 void MainWindow:: settingsWindow_ConfirmButtonClicked(QStringList list){
     resultAddWindow -> modifyPlayerName(list);
+    bigEventWindow -> setComboName(list);
 }
 
 void MainWindow:: databaseSetup(){
@@ -195,16 +199,17 @@ void MainWindow:: databaseSetup(){
     }
     QSqlQuery q;
     q.exec("SELECT * FROM sqlite_master WHERE name = 'gameHistory'");
-    //qDebug() << 1 <<q.lastError();
     if (!q.next()){
         q.exec("CREATE TABLE gameHistory(date TEXT NOT NULL, player TEXT NOT NULL, rank INT NOT NULL, point INT NOT NULL, money REAL)");
     }
-    //qDebug() << 2 << q.lastError();
     q.exec("SELECT * FROM sqlite_master WHERE name = 'rankSystem'");
     if (!q.next()){
         q.exec("CREATE TABLE rankSystem(player TEXT PRIMARY KEY NOT NULL, rank TEXT NOT NULL, point INT NOT NULL)");
     }
-    //qDebug() << 3 <<q.lastError();
+    q.exec("SELECT * FROM sqlite_master WHERE name = 'bigEvent'");
+    if (!q.next()){
+        q.exec("CREATE TABLE bigEvent(date TEXT NOT NULL, lead TEXT, victim TEXT, detail TEXT NOT NULL)");
+    }
 }
 
 void MainWindow:: mainWindow_modifyButtonClicked(){

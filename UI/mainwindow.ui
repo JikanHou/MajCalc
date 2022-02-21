@@ -139,6 +139,9 @@
          <property name="dragDropOverwriteMode">
           <bool>false</bool>
          </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
          <attribute name="verticalHeaderVisible">
           <bool>false</bool>
          </attribute>
@@ -306,6 +309,7 @@
    <addaction name="separator"/>
    <addaction name="resultStatistic"/>
    <addaction name="gameHistory"/>
+   <addaction name="bigEvent"/>
    <addaction name="separator"/>
    <addaction name="settings"/>
   </widget>
