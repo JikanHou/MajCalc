@@ -14,7 +14,15 @@ ResultAddWindow::ResultAddWindow(QWidget *parent): QMainWindow(parent), ui(new U
     connect(ui -> cancel, &QAction:: triggered, this, &ResultAddWindow:: resultAddWindow_CancelButtonClicked);
     for(int i = 0; i < 4; i ++)
         connect(playerPoint[i], &QLineEdit:: textChanged, this, &ResultAddWindow:: pointsModified);
-
+    QSqlDatabase db;
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+      db = QSqlDatabase::database("qt_sql_default_connection");
+    else
+      db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("MaJCalc.db");
+    if (!db.open()){
+        QMessageBox::information(this, "错误", "数据库打开失败");
+    }
 }
 
 ResultAddWindow::~ResultAddWindow(){
@@ -91,15 +99,7 @@ void ResultAddWindow:: pointsModified(){
 void ResultAddWindow:: mainWindow_ResultModifyButtonClicked(QString date){
     mode = addWindowMode:: modify;
     currentTime = date;
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-      db = QSqlDatabase::database("qt_sql_default_connection");
-    else
-      db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("MaJCalc.db");
-    if (!db.open()){
-        QMessageBox::information(this, "错误", "数据库打开失败");
-    }
+
     QSqlQuery q;
     q.exec(QString("SELECT player, rank, point FROM gameHistory WHERE date = '%1'").arg(date));
     qDebug() << q.lastError();

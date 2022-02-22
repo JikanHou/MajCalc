@@ -17,7 +17,8 @@ SOURCES += \
     Src/resultaddwindow.cpp \
     Src/settingswindow.cpp \
     Src/bigeventwindow.cpp \
-    Src/statisticwindow.cpp
+    Src/statisticwindow.cpp \
+    Src/honorwindow.cpp
 
 HEADERS += \
     Include/gamehistorywindow.h \
@@ -27,7 +28,8 @@ HEADERS += \
     Include/resultaddwindow.h \
     Include/settingswindow.h \
     Include/bigeventwindow.h \
-    Include/statisticwindow.h
+    Include/statisticwindow.h \
+    Include/honorwindow.h
 
 FORMS += \
     UI/gamehistorywindow.ui \
@@ -35,7 +37,8 @@ FORMS += \
     UI/resultaddwindow.ui \
     UI/settingswindow.ui \
     UI/bigeventwindow.ui \
-    UI/statisticwindow.ui
+    UI/statisticwindow.ui \
+    UI/honorwindow.ui
 
 INCLUDEPATH += Include/
 RC_ICONS = icon.ico

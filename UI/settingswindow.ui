@@ -320,7 +320,7 @@
        <property name="font">
         <font>
          <family>Adobe Devanagari</family>
-         <pointsize>24</pointsize>
+         <pointsize>16</pointsize>
         </font>
        </property>
        <property name="horizontalScrollBarPolicy">

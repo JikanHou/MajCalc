@@ -73,15 +73,6 @@ void MainWindow:: restoreSettings(){
 }
 
 void MainWindow:: addRecordFromDB(const QString &date, int &row){
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-      db = QSqlDatabase::database("qt_sql_default_connection");
-    else
-      db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("MaJCalc.db");
-    if (!db.open()){
-        QMessageBox::information(this, "错误", "数据库打开失败" + db.lastError().text());
-    }
     QSqlQuery query;
     QString sql = "SELECT player, rank, point FROM gameHistory where date='%1'";
     sql = sql.arg(date);
@@ -257,15 +248,6 @@ void MainWindow:: mainWindow_DeleteButtonClicked(){
     int ret = QMessageBox:: question(this, "警告", QString("是否确认要删除时间为%1的对局记录？该操作不可恢复！").arg(date));
     if (ret == QMessageBox:: Yes){
         ui -> pointTable -> removeRow(ui -> pointTable -> currentRow());
-        QSqlDatabase db;
-        if(QSqlDatabase::contains("qt_sql_default_connection"))
-          db = QSqlDatabase::database("qt_sql_default_connection");
-        else
-          db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("MaJCalc.db");
-        if (!db.open()){
-            QMessageBox::information(this, "错误", "数据库打开失败");
-        }
         QSqlQuery q;
         q.exec(QString("DELETE FROM gameHistory WHERE date = '%1'").arg(date));
         updateMoney();

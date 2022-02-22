@@ -6,15 +6,6 @@ StatisticWindow::StatisticWindow(QWidget *parent) :QMainWindow(parent), ui(new U
     connect(ui -> playerName, &QComboBox:: currentTextChanged, this, &StatisticWindow:: playerChosen);
     connect(ui -> statcTime, &QComboBox:: currentTextChanged, this, &StatisticWindow:: playerChosen);
     playerChosen();
-}
-
-StatisticWindow::~StatisticWindow(){
-    delete ui;
-}
-
-void StatisticWindow:: mainWindow_StatisticButtonClicked(){
-    setWindowModality(Qt:: ApplicationModal);
-    show();
     QSqlDatabase db;
     if(QSqlDatabase::contains("qt_sql_default_connection"))
       db = QSqlDatabase::database("qt_sql_default_connection");
@@ -24,6 +15,16 @@ void StatisticWindow:: mainWindow_StatisticButtonClicked(){
         QMessageBox::information(this, "错误", "数据库打开失败");
         return;
     }
+}
+
+StatisticWindow::~StatisticWindow(){
+    delete ui;
+}
+
+void StatisticWindow:: mainWindow_StatisticButtonClicked(){
+    setWindowModality(Qt:: ApplicationModal);
+    show();
+
     QSqlQuery q;
     q.exec(QString("SELECT DISTINCT player FROM gameHistory"));//date player rank point
     qDebug() << "stat clicked" << q.lastError();

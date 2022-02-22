@@ -190,6 +190,6 @@ void BigEventWindow:: delButtonClicked(){
         q.exec(QString("DELETE FROM bigEvent WHERE date = '%1' AND lead = '%2' AND victim = '%3' AND detail = '%4'").arg(date, lead, victim, detail));
         qDebug() << q.lastError() << q.lastQuery();
     }
-    //queryButtonClicked();
-    ui -> eventTable -> hideRow(row);
+    queryButtonClicked();
+    //ui -> eventTable -> hideRow(row);
 }
