@@ -28,5 +28,6 @@
         <file>Icons/rank14.png</file>
         <file>Icons/rank15.png</file>
         <file>Icons/rankDefault.png</file>
+        <file>Icons/honor.png</file>
     </qresource>
 </RCC>

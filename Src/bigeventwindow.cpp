@@ -77,6 +77,7 @@ void BigEventWindow:: queryButtonClicked(){
             QMessageBox:: information(this, "错误", "请选择受害者！");
             return;
         }
+		sql = sql.arg(ui -> victimCombo_Q -> currentText());
     }
     /*
     if (!oneChecked){

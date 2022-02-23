@@ -33,7 +33,18 @@ RankSystem::RankSystem(QString name){
     }
     rank_lvl = 0;
     pt = ptStart[0]; ptMax = ptMaxList[0];
+}
 
+RankSystem:: RankSystem(QString Name, QString rank, int pt){
+	RankSystem varname(Name);
+	for(int i = 0; i <= 15; i ++){
+		if (rank_cn[i] == rank){
+			rank_lvl = i;
+			ptMax = ptMaxList[i];
+			this -> pt = pt;
+			break;
+		}
+	}
 }
 
 void RankSystem:: gameFinished(int rank, int point){
@@ -74,3 +85,4 @@ QString RankSystem:: getRank(){
 int RankSystem:: getIntRank(){
     return rank_lvl;
 }
+

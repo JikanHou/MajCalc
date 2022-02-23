@@ -99,7 +99,6 @@ void ResultAddWindow:: pointsModified(){
 void ResultAddWindow:: mainWindow_ResultModifyButtonClicked(QString date){
     mode = addWindowMode:: modify;
     currentTime = date;
-
     QSqlQuery q;
     q.exec(QString("SELECT player, rank, point FROM gameHistory WHERE date = '%1'").arg(date));
     qDebug() << q.lastError();

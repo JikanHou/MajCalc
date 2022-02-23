@@ -24,10 +24,8 @@ StatisticWindow::~StatisticWindow(){
 void StatisticWindow:: mainWindow_StatisticButtonClicked(){
     setWindowModality(Qt:: ApplicationModal);
     show();
-
     QSqlQuery q;
     q.exec(QString("SELECT DISTINCT player FROM gameHistory"));//date player rank point
-    qDebug() << "stat clicked" << q.lastError();
     QStringList list;
     while (q.next()){
         list << q.value(0).toString();
@@ -37,15 +35,6 @@ void StatisticWindow:: mainWindow_StatisticButtonClicked(){
 }
 
 void StatisticWindow:: playerChosen(){
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-      db = QSqlDatabase::database("qt_sql_default_connection");
-    else
-      db = QSqlDatabase::addDatabase("QSQLITE");
-    if (!db.open()){
-        QMessageBox::information(this, "错误", "数据库打开失败");
-        return;
-    }
     QSqlQuery q;
     if (ui -> playerName -> currentText().isEmpty()){
         ui -> totalGameCount -> setText("0");

@@ -4,11 +4,20 @@
 
 MainWindow:: MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
     ui -> setupUi(this);
+	if(QSqlDatabase::contains("qt_sql_default_connection"))
+	  db = QSqlDatabase::database("qt_sql_default_connection");
+	else
+	  db = QSqlDatabase::addDatabase("QSQLITE");
+	db.setDatabaseName("MaJCalc.db");
+	if (!db.open()){
+		QMessageBox::information(this, "错误", "数据库打开失败");
+	}
     resultAddWindow = new ResultAddWindow();
     settingsWindow = new SettingsWindow();
     statisticWindow = new StatisticWindow();
     gameHistoryWindow = new GameHistoryWindow();
     bigEventWindow = new BigEventWindow();
+	honorWindow = new HonorWindow();
 
     connect(ui -> resultUpload, &QAction:: triggered, resultAddWindow, &ResultAddWindow:: mainWindow_ResultAddButtonClicked);
     connect(resultAddWindow, &ResultAddWindow:: resultAddWindow_ConfirmButtonClickedSignal, this, &MainWindow:: resultAddWindow_ConfirmButtonClicked);
@@ -26,6 +35,8 @@ MainWindow:: MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWi
     connect(ui -> resultStatistic, &QAction:: triggered, statisticWindow, &StatisticWindow:: mainWindow_StatisticButtonClicked);
     connect(ui -> gameHistory, &QAction:: triggered, gameHistoryWindow, &GameHistoryWindow:: mainWindow_CalendarButtonClicked);
     connect(ui -> bigEvent, &QAction:: triggered, bigEventWindow, &BigEventWindow:: mainWindow_bigEventButtonClicked);
+
+	connect(ui -> HonorAction, &QAction:: triggered, honorWindow, &HonorWindow:: mainWindow_HonorWindowButtonClicked);
 
     databaseSetup();
     restoreSettings();
@@ -156,15 +167,6 @@ void MainWindow:: resultAddWindow_ConfirmButtonClicked(HanCyan result){
     ui -> gameCount -> setText(QString("对战局数：%1").arg(ui -> pointTable -> rowCount()));
 
     //数据库处理Todo
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-      db = QSqlDatabase::database("qt_sql_default_connection");
-    else
-      db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("MaJCalc.db");
-    if (!db.open()){
-        QMessageBox::information(this, "错误", "数据库打开失败");
-    }
     db.transaction();
     QSqlQuery q;
     for(int i = 0 ; i < 4; i ++){
@@ -179,28 +181,21 @@ void MainWindow:: settingsWindow_ConfirmButtonClicked(QStringList list){
 }
 
 void MainWindow:: databaseSetup(){
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-      db = QSqlDatabase::database("qt_sql_default_connection");
-    else
-      db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("MaJCalc.db");
-    if (!db.open()){
-        QMessageBox::information(this, "错误", "数据库打开失败\n" + db.lastError().text());
-    }
     QSqlQuery q;
     q.exec("SELECT * FROM sqlite_master WHERE name = 'gameHistory'");
     if (!q.next()){
         q.exec("CREATE TABLE gameHistory(date TEXT NOT NULL, player TEXT NOT NULL, rank INT NOT NULL, point INT NOT NULL, money REAL)");
     }
-    q.exec("SELECT * FROM sqlite_master WHERE name = 'rankSystem'");
-    if (!q.next()){
-        q.exec("CREATE TABLE rankSystem(player TEXT PRIMARY KEY NOT NULL, rank TEXT NOT NULL, point INT NOT NULL)");
-    }
     q.exec("SELECT * FROM sqlite_master WHERE name = 'bigEvent'");
     if (!q.next()){
         q.exec("CREATE TABLE bigEvent(date TEXT NOT NULL, lead TEXT, victim TEXT, detail TEXT NOT NULL)");
     }
+	/*
+	q.exec("SELECT * FROM sqlite_master WHERE name = 'player'");
+	if (!q.next()){
+		q.exec("CREATE TABLE player(name TEXT PRIMARY KEY NOT NULL, gameCount INT, sumMoney REAL, sumRank INT, level TEXT, pt INT)");
+	}
+	*/
 }
 
 void MainWindow:: mainWindow_modifyButtonClicked(){
@@ -211,15 +206,8 @@ void MainWindow:: mainWindow_modifyButtonClicked(){
 }
 
 void MainWindow:: resultAddWindow_ConfirmButtonClicked_Modify(HanCyan result){
-    QSqlDatabase db;
-    if(QSqlDatabase::contains("qt_sql_default_connection"))
-      db = QSqlDatabase::database("qt_sql_default_connection");
-    else
-      db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("MaJCalc.db");
-    if (!db.open()){
-        QMessageBox::information(this, "错误", "数据库打开失败");
-    }
+
+
     db.transaction();
     QSqlQuery q;
     QString date = result.getGameTime().toString("yyyy年MM月dd日 hh:mm");
@@ -247,10 +235,12 @@ void MainWindow:: mainWindow_DeleteButtonClicked(){
     QString date = ui -> pointTable -> item(ui -> pointTable -> currentRow(), 0) -> text();
     int ret = QMessageBox:: question(this, "警告", QString("是否确认要删除时间为%1的对局记录？该操作不可恢复！").arg(date));
     if (ret == QMessageBox:: Yes){
-        ui -> pointTable -> removeRow(ui -> pointTable -> currentRow());
         QSqlQuery q;
+		db.transaction();
         q.exec(QString("DELETE FROM gameHistory WHERE date = '%1'").arg(date));
-        updateMoney();
+		db.commit();
+		ui -> pointTable -> removeRow(ui -> pointTable -> currentRow());
+		updateMoney();
     }
 }
 

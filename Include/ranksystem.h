@@ -13,14 +13,19 @@ private:
 
 public:
     RankSystem(QString name = "");
-    void setRank(int rank);
-    void lvlUp();
+	RankSystem(QString name, QString rank, int pt);
+
+	void setRank(int rank);
+
+	void lvlUp();
     void lvlDown();
-    QString getRank();
+
+	QString getRank();
     int getPt();
     int getPtMax();
-    void gameFinished(int rank, int point);
     int getIntRank();
+
+	void gameFinished(int rank, int point);
 };
 
 #endif // RANKSYSTEM_H

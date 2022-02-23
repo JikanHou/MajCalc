@@ -6,7 +6,6 @@ GameHistoryWindow:: GameHistoryWindow(QWidget *parent) : QMainWindow(parent), ui
     ui -> table -> horizontalHeader() -> setStretchLastSection(true);
     ui -> table -> horizontalHeader() -> setSectionResizeMode(QHeaderView::Stretch);
     connect(ui -> calendar, &QCalendarWidget:: selectionChanged, this, &GameHistoryWindow:: calenderModified);
-    QSqlDatabase db;
     if(QSqlDatabase::contains("qt_sql_default_connection"))
       db = QSqlDatabase::database("qt_sql_default_connection");
     else
@@ -29,7 +28,6 @@ void GameHistoryWindow:: mainWindow_CalendarButtonClicked(){
 }
 
 void GameHistoryWindow:: calenderModified(){
-
     QSqlQuery q;
     q.exec(QString("SELECT player, rank, point, date FROM gameHistory WHERE date LIKE '%1%' ORDER BY date ASC").arg(ui -> calendar -> selectedDate().toString("yyyy年MM月dd日")));
     qDebug() << q.lastQuery();

@@ -309,6 +309,7 @@
    <addaction name="separator"/>
    <addaction name="resultStatistic"/>
    <addaction name="gameHistory"/>
+   <addaction name="HonorAction"/>
    <addaction name="bigEvent"/>
    <addaction name="separator"/>
    <addaction name="settings"/>
@@ -402,6 +403,15 @@
    </property>
    <property name="text">
     <string>历史对局</string>
+   </property>
+  </action>
+  <action name="HonorAction">
+   <property name="icon">
+    <iconset resource="../Icons.qrc">
+     <normaloff>:/Icons/honor.png</normaloff>:/Icons/honor.png</iconset>
+   </property>
+   <property name="text">
+    <string>荣辱榜</string>
    </property>
   </action>
  </widget>

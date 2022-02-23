@@ -23,7 +23,7 @@ public:
 
 private:
     Ui::GameHistoryWindow *ui;
-
+	QSqlDatabase db;
 public slots:
     void calenderModified();
     void mainWindow_CalendarButtonClicked();

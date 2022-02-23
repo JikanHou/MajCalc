@@ -20,6 +20,7 @@
 #include "statisticwindow.h"
 #include "gamehistorywindow.h"
 #include "bigeventwindow.h"
+#include "honorwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,6 +41,9 @@ private:
     StatisticWindow *statisticWindow;
     GameHistoryWindow *gameHistoryWindow;
     BigEventWindow *bigEventWindow;
+	HonorWindow *honorWindow;
+
+	QSqlDatabase db;
     //QString currentTime;
     //QDateTime lastTime;
 
