@@ -40,7 +40,6 @@ void HonorWindow:: updatePoint(){
 		map[name].money += q.value(3).toDouble();
 	}
 	if (!hasRec){
-		setWindowModality(Qt:: NonModal);
 		return;
 	}
 	QString minPointName, maxPointName, minRentaiName, maxRenTaiName, minAvgName, maxAvgName, minMoneyName, maxMoneyName, minGameName, maxGameName, minRankName, maxRankName;
