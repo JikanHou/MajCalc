@@ -153,10 +153,15 @@ void BigEventWindow:: submitButtonClicked(){
             lead += ",";
         lead += ui -> leadList -> item(i) -> text();
     }
+	if (victim.isEmpty() && lead.isEmpty() && detail.isEmpty()){
+		QMessageBox:: information(this, "错误", "啥也没有发生啊");
+		return;
+	}
     sql = sql.arg(time, lead, victim, detail);
     if (!q.exec(sql)){
         QMessageBox:: warning(this, "错误", q.lastError().text() + q.lastQuery());
     }
+	QMessageBox:: information(this, "成功", "已经提交成功，请勿重复提交");
 }
 
 void BigEventWindow:: comboBoxModified(){
