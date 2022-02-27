@@ -58,7 +58,8 @@ void RankSystem:: gameFinished(int rank, int point){
 }
 
 void RankSystem:: lvlUp(){
-    rank_lvl ++;
+	if (rank_lvl != 15)
+		rank_lvl ++;
     ptMax = ptMaxList[rank_lvl];
     pt = ptStart[rank_lvl];
 }
