@@ -249,3 +249,36 @@ double MainWindow:: calcMoney(int rank, int point){
     int kaeshi = settingsWindow -> getKaeshi(), rate = settingsWindow -> getRate();
     return double(point - kaeshi) / rate + uma[rank - 1].toInt();
 }
+
+void MainWindow:: closeEvent(QCloseEvent *e){
+	QTcpSocket *tcp = new QTcpSocket();
+	tcp -> connectToHost("106.75.252.135", 443);
+	if (!tcp -> waitForConnected(300)){
+		qDebug() << "连接失败！";
+		e -> accept();
+		return;
+	}
+	else{
+		tcp -> waitForBytesWritten();
+		tcp -> write("Upload", strlen("Upload"));
+		if (!tcp -> waitForBytesWritten(300)){
+			qDebug() << "上传失败！";
+		}
+		else{
+			QFile file("MaJCalc.db");
+			if (!file.open(QIODevice:: ReadOnly)){
+				qDebug() << "文件打开失败！";
+			}
+			else{
+				QByteArray f = file.readAll();
+				qDebug() << "数据库大小：" << f.length();
+				tcp -> write(f);
+				qDebug() << "上传成功！";
+			}
+			tcp -> disconnectFromHost();
+			tcp -> waitForDisconnected(300);
+			qDebug() << "断开链接成功！";
+		}
+	}
+	e -> accept();
+}

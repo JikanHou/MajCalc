@@ -14,6 +14,10 @@
 #include <QSqlError>
 #include <QMessageBox>
 #include <QTableWidget>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QFile>
+#include <QCloseEvent>
 #include "resultaddwindow.h"
 #include "hancyan.h"
 #include "settingswindow.h"
@@ -34,6 +38,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+	void closeEvent ( QCloseEvent *e);
 private:
     Ui::MainWindow *ui;
     ResultAddWindow *resultAddWindow;
